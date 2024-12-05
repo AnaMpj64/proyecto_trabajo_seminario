@@ -15,6 +15,7 @@ class Empresa(models.Model):
     telefono = models.CharField(max_length=15)
     correo_contacto= models.EmailField()
     criterios_inclusion = models.TextField()
+    logo = models.ImageField(upload_to='media/empresa/logo', null=True, blank= True)
 
     def __str__(self) -> str:
         return f"{self.nombre}"

@@ -16,10 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from formulario.views import listar_empresas
+from formulario.views import listar_empresas, detalle_empresa, crear_empresa
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('empresas/',listar_empresas,name='listar_empresas')
+    path('empresas/',listar_empresas,name='listar_empresas'),
+    path('empresa/<int:empresa_id>/', detalle_empresa, name='detalle_empresa'),
+    path('empresa/nueva/',crear_empresa,name='crear_empresa'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
