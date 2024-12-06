@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
+from django.contrib.auth.decorators import login_required
 from formulario.forms import FormularioEmpresa
 from .models import Empresa, Oferta
 
@@ -22,6 +23,7 @@ def detalle_empresa(request, empresa_id):
         }
     return render(request, 'detalle_empresa.html', contexto)
 
+@login_required
 def crear_empresa(request):
     if request.method == 'POST':
         formulario = FormularioEmpresa(request.POST, request.FILES)
@@ -33,4 +35,8 @@ def crear_empresa(request):
         'formulario' : formulario
     }
     return render(request, 'crear_empresa.html', contexto)
+
+@login_required
+def perfil(request):
+    return render(request, 'perfil.html')
 
